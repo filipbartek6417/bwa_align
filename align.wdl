@@ -11,7 +11,7 @@ task align_with_bwa {
 
     # Install required tools
     apt-get update && apt-get install -y apt-utils curl bwa
-
+    ls -l "gs://fc-c3eed389-0be2-4bbc-8c32-1a40b8696969/bartek_testing/hs1_ref"
     # Align with bwa mem
     bwa mem -5SP -T0 -t16 ~{reference_path} ~{fastq_path} -o aligned.sam
   }
