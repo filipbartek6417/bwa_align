@@ -13,7 +13,7 @@ task align_with_bwa {
     apt-get update && apt-get install -y apt-utils curl bwa
 
     # Align with bwa mem
-    bwa mem -5SP -T0 -t16 ~{reference_path} ~{fastq_path} > aligned.sam
+    bwa mem -5SP -T0 -t16 ~{reference_path} ~{fastq_path} -o aligned.sam
   }
 
   output {
