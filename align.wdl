@@ -2,7 +2,7 @@ version 1.0
 
 task align_with_bwa {
   input {
-    String fastq_url
+    String fastq_path
     String reference_path
   }
 
@@ -12,9 +12,8 @@ task align_with_bwa {
     # Install required tools
     apt-get update && apt-get install -y apt-utils curl bwa
 
-    # Stream the FASTQ file and align with bwa mem
-    curl -s ~{fastq_url} | \
-    bwa mem -5SP -T0 -t16 ~{reference_path} - > aligned.sam
+    # Align with bwa mem
+    bwa mem -5SP -T0 -t16 ~{reference_path} ~{fastq_path} > aligned.sam
   }
 
   output {
@@ -31,13 +30,13 @@ task align_with_bwa {
 
 workflow bwa_alignment {
   input {
-    String fastq_url = "https://s3-us-west-2.amazonaws.com/human-pangenomics/submissions/5b73fa0e-658a-4248-b2b8-cd16155bc157--UCSC_GIAB_R1041_nanopore/HG002_R1041_PoreC/Dorado_v4/HG002_1_Dorado_v4_R1041_PoreC_400bps_sup.fastq.gz"
+    String fastq_path = "gs://fc-c3eed389-0be2-4bbc-8c32-1a40b8696969/submissions/08166185-8d5e-4374-9bb8-cdfb15370970/sample_fastq/547fd72c-d644-445e-a072-06c4ae8d5aa8/call-stream_and_sample/subsampled.fastq.gz"
     String reference_path = "gs://fc-c3eed389-0be2-4bbc-8c32-1a40b8696969/bartek_testing/hs1_ref/hs1.fa"  # Update with the Terra directory path
   }
 
   call align_with_bwa {
     input:
-      fastq_url = fastq_url,
+      fastq_path = fastq_path,
       reference_path = reference_path
   }
 
