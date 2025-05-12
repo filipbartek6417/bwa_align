@@ -1,0 +1,6 @@
+version: 1.2
+workflows:
+  - name: bwa_align
+    subclass: WDL
+    primaryDescriptorPath: /align.wdl
+    testParameterFiles: []
