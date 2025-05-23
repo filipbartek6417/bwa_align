@@ -20,8 +20,8 @@ task align_with_bwa {
 
   runtime {
     docker: "ubuntu:20.04"
-    disks: "local-disk 300 SSD"
-    memory: "64G"
+    disks: "local-disk 5000 SSD"
+    memory: "100G"
     cpu: 32
   }
 }
